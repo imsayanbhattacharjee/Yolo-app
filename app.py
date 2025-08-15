@@ -62,7 +62,7 @@ with app.app_context():
     db.create_all()
 
 # Load the YOLOv8 model (pretrained or custom)
-model = YOLO("yolov8x.pt")  # You can replace this with the path to your custom model
+model = YOLO("yolov8n.pt")  # You can replace this with the path to your custom model
 
 # Function to preprocess image
 def preprocess_image(image):
