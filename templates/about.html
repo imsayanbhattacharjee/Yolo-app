@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - ZabxYOLO</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: rgba(15, 15, 15, 0.9);
+        color: #f8f9fa;
+        font-family: "Arial", sans-serif;
+        margin: 0;
+      }
+
+      .btn-neon {
+        background: transparent;
+        border: 2px solid #0ef9ff;
+        color: #0ef9ff;
+        text-transform: uppercase;
+        transition: all 0.4s ease-in-out;
+      }
+
+      .btn-neon:hover {
+        background: #0ef9ff;
+        color: #000000;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+        box-shadow: 0 0 15px #0ef9ff, 0 0 30px #0ef9ff;
+      }
+
+      .content {
+        padding: 60px 15px;
+      }
+
+      .content h1 {
+        text-align: center;
+        font-size: 3rem;
+        margin-bottom: 20px;
+        color: #0ef9ff;
+      }
+      .contact h2 {
+        color: #0ef9ff;
+      }
+
+      .content p {
+        text-align: justify;
+        font-size: 1.2rem;
+        line-height: 1.8;
+      }
+      .team-title {
+        color: black;
+        text-align: center;
+        font-size: 3rem;
+        margin-bottom: 20px;
+      }
+      .member-name {
+        color: black;
+      }
+
+      .navbar {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      
+      .navbar-brand {
+        font-size: 2rem;
+        font-weight: bold;
+        color: white;
+        transition: 0.3s ease-in-out;
+      }
+
+      .navbar-brand:hover {
+        color: #0ef9ff;
+        text-shadow: 0 0 10px #0ef9ff, 0 0 20px #0ef9ff, 0 0 30px #0ef9ff;
+      }
+
+      .navbar-nav .nav-link:hover {
+        color: #0ef9ff;
+        text-shadow: 0 0 10px #0ef9ff;
+      }
+      .navbar-nav .nav-link::after {
+        content: "";
+        display: block;
+        width: 0;
+        height: 2px;
+        background: #0ef9ff;
+        transition: width 0.4s ease-in-out;
+        margin-top: 5px;
+      }
+
+      .navbar-nav .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .navbar {
+        background-color: #343a40;
+        z-index: 2;
+        position: relative;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      }
+
+      .navbar-nav .nav-link {
+        color: #f8f9fa;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: all 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="#">ZabxYOLO</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('about') }}">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-neon ms-3" href="{{ url_for('logout') }}">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- About Us Content -->
+    <div class="content container">
+      <h1>About Us</h1>
+      <p>
+        At ZabxYOLO, we are dedicated to revolutionizing the field of real-time
+        object detection. Our team of AI enthusiasts and developers work
+        tirelessly to create intuitive and highly precise solutions for object
+        detection, analytics, and computer vision tasks.
+      </p>
+      <p>
+        Founded on the principles of innovation, speed, and accuracy, ZabxYOLO
+        aims to empower developers, researchers, and businesses with the tools
+        they need to harness the power of artificial intelligence seamlessly.
+      </p>
+    </div>
+    <!-- Meet the Team -->
+    <section class="bg-light py-5">
+      <div class="container">
+        <h2 class="team-title">Meet Our Team</h2>
+        <div class="row text-center">
+          <div class="col-md-4">
+            <img
+              src="{{ url_for('static', filename='images/akash.jpg') }}"
+              class="rounded-circle mb-3"
+              alt="Team Member 1"
+              style="
+                width: 175px;
+                height: 175px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid #007bff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+              "
+            />
+            <h5 class="member-name">Akash Kumar Das</h5>
+            <p class="member-name">Frontend Developer</p>
+          </div>
+          <div class="col-md-4">
+            <img
+              src="{{ url_for('static', filename='images/srijit.jpg') }}"
+              class="rounded-circle mb-3"
+              alt="Team Member 2"
+              style="
+                width: 175px;
+                height: 175px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid #007bff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+              "
+            />
+            <h5 class="member-name">Srijit Pal</h5>
+            <p class="member-name">Database Manager</p>
+          </div>
+          <div class="col-md-4">
+            <img
+              src="{{ url_for('static', filename='images/shubham.jpg') }}"
+              class="rounded-circle mb-3"
+              alt="Team Member 3"
+              style="
+                width: 175px;
+                height: 175px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid #007bff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+              "
+            />
+            <h5 class="member-name">Shubham Choudhary</h5>
+            <p class="member-name">Backend Developer</p>
+          </div>
+        </div>
+        <br />
+        <br />
+        <div class="row justify-content-center text-center">
+          <div class="col-md-4">
+            <img
+              src="{{ url_for('static', filename='images/sayan.jpg') }}"
+              class="rounded-circle mb-3"
+              alt="Team Member 4"
+              style="
+                width: 175px;
+                height: 175px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid #007bff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+              "
+            />
+            <h5 class="member-name">Sayan Bhattacharjee</h5>
+            <p class="member-name">Backend Developer</p>
+          </div>
+          <div class="col-md-4">
+            <img
+              src="{{ url_for('static', filename='images/shubhadip.jpg') }}"
+              class="rounded-circle mb-3"
+              alt="Team Member 5"
+              style="
+                width: 175px;
+                height: 175px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 2px solid #007bff;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+              "
+            />
+            <h5 class="member-name">Shubhadip Koley</h5>
+            <p class="member-name">Frontend Developer</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact py-5">
+      <div class="container text-center">
+        <h2 class="fw-bold mb-4">Get in Touch</h2>
+        <p>Have questions or want to collaborate? Reach out to us today!</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-neon">Contact Us</a>
+      </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>

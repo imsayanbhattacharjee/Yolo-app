@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <title>Login/Sign-Up</title>
+    <style>
+      body {
+        background-color: #111c27; /* Dark background */
+        font-family: "Arial", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 400px;
+        background-color: #111c27; /* Dark background */
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 15px #0ef9ff, 0 0 30px #0ef9ff; /* Added box-shadow with the desired color */
+      }
+
+      .toggle-buttons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .toggle-buttons button {
+        flex: 1;
+        border: none;
+        background: none;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 10px;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s ease;
+      }
+
+      .toggle-buttons button.active {
+        border-bottom: 3px solid #0ef9ff;
+        color: #0ef9ff;
+      }
+
+      form {
+        display: none;
+      }
+
+      form.active {
+        display: block;
+      }
+
+      form h2 {
+        font-size: 22px;
+        color: #0ef9ff;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      form .error-message {
+        display: none;
+        color: #0ef9ff;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      form input {
+        margin-bottom: 15px;
+        border-radius: 5px;
+      }
+
+      form button {
+        width: 100%;
+        padding: 10px;
+        background: transparent;
+        border: 2px solid #0ef9ff;
+        color: #0ef9ff;
+        text-transform: uppercase;
+        transition: all 0.4s ease-in-out;
+        padding: 10px 20px;
+        font-size: 1rem;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      form button:hover {
+        background: #0ef9ff;
+        color: #000000;
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+        box-shadow: 0 0 15px #0ef9ff, 0 0 30px #0ef9ff;
+      }
+
+      .text-center a {
+        color: white;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .text-center a:hover {
+        text-decoration: underline;
+      }
+
+      .txt{
+        color: #0ef9ff;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 15px;
+        }
+      }
+      /* Moving Background Circles */
+      .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        /* Contain circles */
+        z-index: -1;
+      }
+      .circle {
+        position: absolute;
+        border-radius: 50%;
+        animation: move 15s linear infinite;
+        filter: blur(2px);
+        box-shadow: 0 0 10px #0ef9ff, 0 0 30px #0ef9ff, 0 0 50px #0ef9ff;
+      }
+
+      /* Circle Styles */
+      .circle:nth-child(1) {
+        top: 10%;
+        left: 15%;
+        width: 100px;
+        height: 100px;
+        background: rgba(14, 249, 255, 0.2);
+        animation-duration: 20s;
+      }
+
+      .circle:nth-child(2) {
+        top: 50%;
+        left: 60%;
+        width: 150px;
+        height: 150px;
+        background: rgba(14, 249, 255, 0.2);
+        animation-duration: 25s;
+      }
+
+      .circle:nth-child(3) {
+        top: 70%;
+        left: 30%;
+        width: 80px;
+        height: 80px;
+        background: rgba(14, 249, 255, 0.2);
+        animation-duration: 18s;
+      }
+
+      .circle:nth-child(4) {
+        top: 20%;
+        left: 80%;
+        width: 120px;
+        height: 120px;
+        background: rgba(14, 249, 255, 0.2);
+        animation-duration: 22s;
+      }
+
+      .circle:nth-child(5) {
+        top: 5%;
+        left: 45%;
+        width: 90px;
+        height: 90px;
+        background: rgba(14, 249, 255, 0.2);
+        animation-duration: 24s;
+      }
+
+      .circle:nth-child(6) {
+        top: 80%;
+        left: 10%;
+        width: 140px;
+        height: 140px;
+        background: rgba(14, 249, 255, 0.2);
+        animation-duration: 21s;
+      }
+
+      .circle:nth-child(7) {
+        top: 30%;
+        left: 5%;
+        width: 110px;
+        height: 110px;
+        background: rgba(14, 249, 255, 0.2);
+        animation-duration: 26s;
+      }
+
+      .circle:nth-child(8) {
+        top: 40%;
+        left: 85%;
+        width: 60px;
+        height: 60px;
+        background: rgba(14, 249, 255, 0.2);
+        animation-duration: 19s;
+      }
+
+      @keyframes move {
+        0% {
+          transform: translate(0, 0);
+        }
+
+        25% {
+          transform: translate(50vw, -20vh);
+        }
+
+        50% {
+          transform: translate(-30vw, 50vh);
+        }
+
+        75% {
+          transform: translate(40vw, 40vh);
+        }
+
+        100% {
+          transform: translate(-50vw, -50vh);
+        }
+      }
+      .forgot-password {
+        display: block;
+        text-align: center;
+        margin-top: 10px;
+        color: #0ef9ff;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div class="background">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+    <div class="container">
+      <div class="toggle-buttons">
+        <button id="login-btn" class="active">Login</button>
+        <button id="signup-btn">Sign Up</button>
+      </div>
+
+      <!-- Login Form -->
+      <form
+        id="login-form"
+        class="form active"
+        method="POST"
+        action="/login_user"
+      >
+        <h2>Login</h2>
+        <div class="error-message" id="login-error"></div>
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          placeholder="Password"
+          required
+        />
+        <button type="submit">Login</button>
+        <p class="text-center mt-3 txt">
+          Don't have an account? <a href="#" id="switch-to-signup">Sign up</a>
+        </p>
+        <a class="forgot-password" href="{{ url_for('forgot_pass') }}">Forgot Password</a>
+      </form>
+
+      <!-- Sign-Up Form -->
+      <form id="signup-form" class="form" method="POST" action="/signup">
+        <h2>Sign Up</h2>
+        <div class="error-message" id="signup-error"></div>
+        <input
+          type="text"
+          name="fullName"
+          class="form-control"
+          placeholder="Full Name"
+          required
+        />
+        <input
+          type="email"
+          name="email"
+          class="form-control"
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          class="form-control"
+          placeholder="Password"
+          required
+        />
+        <input
+          type="password"
+          name="confirmPassword"
+          class="form-control"
+          placeholder="Confirm Password"
+          required
+        />
+        <button type="submit">Sign Up</button>
+        <p class="text-center mt-3 txt">
+          Already have an account? <a href="#" id="switch-to-login">Log-in</a>
+        </p>
+      </form>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const loginBtn = document.getElementById('login-btn');
+      const signupBtn = document.getElementById('signup-btn');
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const loginError = document.getElementById('login-error');
+      const signupError = document.getElementById('signup-error');
+      const switchToSignup = document.getElementById('switch-to-signup');
+      const switchToLogin = document.getElementById('switch-to-login');
+
+      function showLogin() {
+          loginForm.classList.add('active');
+          signupForm.classList.remove('active');
+          loginBtn.classList.add('active');
+          signupBtn.classList.remove('active');
+      }
+
+      function showSignup() {
+          signupForm.classList.add('active');
+          loginForm.classList.remove('active');
+          signupBtn.classList.add('active');
+          loginBtn.classList.remove('active');
+      }
+
+      // Event listeners
+      loginBtn.addEventListener('click', showLogin);
+      signupBtn.addEventListener('click', showSignup);
+      switchToSignup.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          showSignup();
+      });
+      switchToLogin.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          showLogin();
+      });
+
+      function showError(formType, message) {
+          let loginError = document.getElementById("login-error");
+          let signupError = document.getElementById("signup-error");
+
+          // Hide both errors initially
+          loginError.style.display = 'none';
+          signupError.style.display = 'none';
+
+          // Display the appropriate error message based on formType
+          if (formType === 'login') {
+              loginBtn.classList.add('active');
+              signupBtn.classList.remove('active');
+              loginForm.classList.add('active');
+              signupForm.classList.remove('active');
+              loginError.textContent = message;
+              loginError.style.display = 'block';  // Show the login error div
+          } else if (formType === 'signup') {
+              signupBtn.classList.add('active');
+              loginBtn.classList.remove('active');
+              signupForm.classList.add('active');
+              loginForm.classList.remove('active');
+              signupError.textContent = message;
+              signupError.style.display = 'block';  // Show the signup error div
+          }
+      }
+
+      // Check if there's a login error and display it dynamically
+      {% if login_error %}
+          showError('login', "{{ login_error }}");
+      {% endif %}
+
+      // Check if there's a signup error and display it dynamically
+      {% if signup_error %}
+          showError('signup', "{{ signup_error }}");
+      {% endif %}
+    </script>
+  </body>
+</html>

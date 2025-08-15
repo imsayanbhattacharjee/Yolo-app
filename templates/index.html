@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZabxYOLO - Object Detection</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            color: #212529;
+            background-color: #111c27;
+            /* Updated for dark theme */
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.8);
+          }
+          
+          .navbar-brand {
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            transition: 0.3s ease-in-out;
+          }
+    
+          .navbar-brand:hover {
+            color: #0ef9ff;
+            text-shadow: 0 0 10px #0ef9ff, 0 0 20px #0ef9ff, 0 0 30px #0ef9ff;
+          }
+    
+          .navbar-nav .nav-link:hover {
+            color: #0ef9ff;
+            text-shadow: 0 0 10px #0ef9ff;
+          }
+          .navbar-nav .nav-link::after {
+            content: "";
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #0ef9ff;
+            transition: width 0.4s ease-in-out;
+            margin-top: 5px;
+          }
+    
+          .navbar-nav .nav-link:hover::after {
+            width: 100%;
+          }
+    
+          .navbar {
+            background-color: #343a40;
+            z-index: 2;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+          }
+    
+          .navbar-nav .nav-link {
+            color: #f8f9fa;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease-in-out;
+          }
+
+          .btn-neon {
+            background: transparent;
+            border: 2px solid #0ef9ff;
+            color: #0ef9ff;
+            text-transform: uppercase;
+            transition: all 0.4s ease-in-out;
+          }
+    
+          .btn-neon:hover {
+            background: #0ef9ff;
+            color: #000000;
+            text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+            box-shadow: 0 0 15px #0ef9ff, 0 0 30px #0ef9ff;
+          }
+
+        /* Hero Section */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: black;
+            padding: 20px;
+            background: linear-gradient(270deg,
+                    #d1531d,
+                    #dca642,
+                    #dcd642,
+                    #42dc82,
+                    #4293dc);
+            background-size: 1000% 1000%;
+
+            -webkit-animation: AnimationName 14s ease infinite;
+            -moz-animation: AnimationName 14s ease infinite;
+            animation: AnimationName 14s ease infinite;
+        }
+
+        @-webkit-keyframes AnimationName {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @-moz-keyframes AnimationName {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes AnimationName {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .decorative-line {
+            display: inline-block;
+            width: 80px;
+            height: 4px;
+            background-color: #0ef9ff;
+            margin: 20px auto;
+        }
+
+        /* Why Choose Us Section */
+        #choose-us {
+            padding: 80px 0;
+            background-color: #1d2938;
+            color: #fff;
+        }
+
+        #choose-us h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: #0ef9ff;
+            margin-bottom: 50px;
+        }
+
+        .choose-us-card {
+            background-color: rgba(17, 28, 39, 0.9);
+            border: 2px solid #0ef9ff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #0ef9ff, 0 0 30px rgba(14, 249, 255, 0.5);
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+            height: 200px;
+        }
+
+        .choose-us-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0ef9ff;
+            margin-bottom: 10px;
+        }
+
+        .choose-us-card p {
+            font-size: 1rem;
+            color: #f8f9fa;
+        }
+
+        /* Review Section */
+        #reviews {
+            padding: 80px 0;
+            background-color: #111c27;
+            color: white;
+        }
+
+        #reviews h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: #0ef9ff;
+            margin-bottom: 50px;
+        }
+
+        .review-card {
+            background-color: rgba(17, 28, 39, 0.9);
+            border: 2px solid #0ef9ff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #0ef9ff, 0 0 30px rgba(14, 249, 255, 0.5);
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+            height: auto;
+            position: relative;
+        }
+
+        .review-card img {
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        .review-card p {
+            font-size: 1.1rem;
+            color: #f8f9fa;
+        }
+
+        .review-card .reviewer {
+            font-size: 1rem;
+            color: #0ef9ff;
+            font-weight: bold;
+        }
+
+        .review-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #0ef9ff, 0 0 40px #0ef9ff;
+            background-color: #0ef9ff;
+            color: #000;
+        }
+
+        .review-card:hover p,
+        .review-card:hover .reviewer {
+            color: #000;
+        }
+
+
+        /* Features Section */
+        #features {
+            padding: 80px 0;
+            background-color: #111c27;
+            color: white;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            color: #0ef9ff;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background-color: rgba(17, 28, 39, 0.9);
+            border: 2px solid #0ef9ff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px #0ef9ff, 0 0 30px rgba(14, 249, 255, 0.5);
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+            height: 200px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #0ef9ff;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 1rem;
+            color: #f8f9fa;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px #0ef9ff, 0 0 40px #0ef9ff;
+            background-color: #0ef9ff;
+            color: #000;
+        }
+
+        .feature-card:hover h3,
+        .feature-card:hover p {
+            color: #000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+
+            .feature-card,
+            .choose-us-card {
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#">ZabxYOLO</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('contact') }}">Contact Us</a>
+                    </li>
+                </ul>
+                <a href="{{ url_for('login') }}" class="btn btn-neon ms-3">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div>
+            <h1>Welcome to ZabxYOLO</h1>
+            <p>Experience the future of real-time object detection.</p>
+            <a href="{{ url_for('login') }}" class="btn btn-neon btn-lg">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2>Key Features</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="feature-card">
+                        <h3>High Accuracy</h3>
+                        <p>AI-powered detection with high precision.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="feature-card">
+                        <h3>Real-time Analysis</h3>
+                        <p>Process and detect objects instantly.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="feature-card">
+                        <h3>WebCam Integration</h3>
+                        <p>Detect real-time objects using WebCam.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section id="choose-us">
+        <div class="container">
+            <h2>Why Choose Us</h2>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="choose-us-card">
+                        <h3>AI-Powered</h3>
+                        <p>Our AI ensures top-tier accuracy and performance.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="choose-us-card">
+                        <h3>Scalable</h3>
+                        <p>Our solution adapts to a wide range of applications.</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-12 mb-4">
+                    <div class="choose-us-card">
+                        <h3>Real-time Detection</h3>
+                        <p>Instant results with real-time object recognition.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </section>
+
+    <!-- Review Section -->
+    <section id="reviews">
+    <div class="container">
+        <h2 class="text-center mb-4">What Our Clients Say</h2>
+        <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                            <div class="review-card">
+                                <img src="{{ url_for('static', filename='images/akash.jpg') }}" class="rounded-circle mb-3"
+                                    alt="Akash"
+                                    style="width: 175px; height: 175px; object-fit: cover; border-radius: 50%; border: 2px solid #007bff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+                                <p>"ZabxYOLO has completely transformed our detection accuracy. Truly remarkable!"</p>
+                                <div class="reviewer">Akash</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                            <div class="review-card">
+                                <img src="{{ url_for('static', filename='images/shubham.jpg') }}" class="rounded-circle mb-3"
+                                    alt="Shubham"
+                                    style="width: 175px; height: 175px; object-fit: cover; border-radius: 50%; border: 2px solid #007bff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+                                <p>"Real-time object detection was never this seamless. Highly recommend!"</p>
+                                <div class="reviewer">Shubham</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                            <div class="review-card">
+                                <img src="{{ url_for('static', filename='images/srijit.jpg') }}" class="rounded-circle mb-3"
+                                    alt="Srijit"
+                                    style="width: 175px; height: 175px; object-fit: cover; border-radius: 50%; border: 2px solid #007bff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+                                <p>"Fantastic results with an easy-to-use platform. A must-try for businesses."</p>
+                                <div class="reviewer">Srijit</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                            <div class="review-card">
+                                <img src="{{ url_for('static', filename='images/sayan.jpg') }}" class="rounded-circle mb-3"
+                                    alt="Sayan"
+                                    style="width: 175px; height: 175px; object-fit: cover; border-radius: 50%; border: 2px solid #007bff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+                                <p>"Incredible software! ZabxYOLO enhanced our team's efficiency by leaps and bounds."</p>
+                                <div class="reviewer">Sayan</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 col-12 mb-4">
+                            <div class="review-card">
+                                <img src="{{ url_for('static', filename='images/shubhadip.jpg') }}" class="rounded-circle mb-3"
+                                    alt="Shubhadip"
+                                    style="width: 175px; height: 175px; object-fit: cover; border-radius: 50%; border: 2px solid #007bff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);">
+                                <p>"User-friendly and highly reliable. ZabxYOLO is a game-changer for our workflow."</p>
+                                <div class="reviewer">Shubhadip</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <p>&copy; 2024 ZabxYOLO. All Rights Reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
