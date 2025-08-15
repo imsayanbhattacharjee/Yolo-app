@@ -34,14 +34,14 @@ class Detection(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(100), nullable=False)
     username = db.Column(db.String(100), nullable=False)
-    media_type = db.Column(db.Enum('image', 'video'), nullable=False)  # 'image' or 'video'
+    media_type = db.Column(db.Enum('image', 'video', name='media_type_enum'),nullable=False)  # 'image' or 'video'
     input_file_path = db.Column(db.String(300), nullable=False)  # Store uploaded file path
     confidence = db.Column(db.Float, nullable=False)
     login_time = db.Column(db.DateTime, nullable=False)
     logout_time = db.Column(db.DateTime, nullable=True)
     detected_classes = db.Column(db.Text, nullable=True)
     report = db.Column(db.String(200), nullable=True)  # Link to recent activity
-    satisfactory = db.Column(db.Enum('Yes', 'No'), nullable=True)  # User feedback
+    satisfactory = db.Column(db.Enum('Yes', 'No',name='satisfactory_enum'), nullable=True)  # User feedback
     
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
